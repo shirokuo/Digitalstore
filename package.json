@@ -1,0 +1,28 @@
+{
+  "name": "telegram-bot-produk-digital-advanced",
+  "version": "2.0.0",
+  "description": "Bot Telegram Produk Digital dengan sistem keamanan tinggi dan storage unlimited",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "digital",
+    "products",
+    "qris",
+    "payment",
+    "secure"
+  ],
+  "author": "JeeyHosting",
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.64.0",
+    "axios": "^1.6.2",
+    "qrcode": "^1.5.3",
+    "fs-extra": "^11.2.0",
+    "crypto": "^1.0.1"
+  }
+}
