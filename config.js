@@ -6,7 +6,7 @@ module.exports = {
     // ============================================
     // 🤖 BOT CONFIGURATION
     // ============================================
-    BOT_TOKEN: process.env.BOT_TOKEN || '8558137456:AAEahrcQvA5xQSUDoFbr1XKtXeSEZpso3Zc',
+    BOT_TOKEN: process.env.BOT_TOKEN || '8374179615:AAH_nIQYYaYLCHqT-P-nI9PDqq9QmFD8F6E',
     OWNER_ID: parseInt(process.env.OWNER_ID || '7804463533'),
     BOT_LOGO: process.env.BOT_LOGO || 'https://files.catbox.moe/4uuyfl.jpg',
     
