@@ -1,0 +1,78 @@
+name: Telegram Bot Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'start'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run Telegram Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          CIAATOPUP_API_KEY: ${{ secrets.CIAATOPUP_API_KEY }}
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+        run: |
+          echo "🚀 Starting Telegram Bot..."
+          node index.js
+        
+      - name: Commit database changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add database/ || true
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update database [skip ci]" || true
+          git push || true
+```
+
+3. **Commit file**
+
+---
+
+### **Solusi 4: Cek Apakah Anda Owner Repository**
+
+Pastikan akun GitHub yang login adalah **owner/admin** dari repository `Digitalstore`.
+
+Jika bukan, minta owner untuk:
+1. Pergi ke **Settings → Collaborators**
+2. Tambahkan Anda sebagai **Admin**
+
+---
+
+### **Solusi 5: Gunakan Personal Access Token (Fine-grained)**
+
+Jika masih error, coba pakai Fine-grained token:
+
+1. **Buka:** https://github.com/settings/tokens?type=beta
+2. **Generate new token**
+3. **Repository access:** Select repositories → Pilih `Digitalstore`
+4. **Permissions:**
+```
+   Repository permissions:
+   - Actions: Read and write
+   - Contents: Read and write
+   - Metadata: Read-only
+   - Workflows: Read and write
